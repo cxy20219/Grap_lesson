@@ -8,6 +8,7 @@ import threading
 def login():
     cookies=input("请输入你的cookies:").strip()
     cookies_dict={i.split("=")[0]:i.split("=")[-1] for i in cookies.split("; ")}
+    return cookies_dict
 #不同课类别
 lessons_class=["https://xk.webvpn.scuec.edu.cn/xsxk/xkOper.xk?method=handleTjxk&jxbid=202120222{}&glJxbid=",
                "https://xk.webvpn.scuec.edu.cn/xsxk/xkOper.xk?method=handleCxcy&jxbid=202120222{}&glJxbid=",
