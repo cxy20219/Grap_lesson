@@ -32,8 +32,7 @@ lessons_class=["https://xk.webvpn.scuec.edu.cn/xsxk/xkOper.xk?method=handleTjxk&
                "https://xk.webvpn.scuec.edu.cn/xsxk/xkOper.xk?method=handleQxgxk&jxbid={}{}&glJxbid=",
                "https://xk.webvpn.scuec.edu.cn/xsxk/xkOper.xk?method=handleWljx&jxbid={}{}&glJxbid=",
                ]
-
-class QK(tk.Frame):
+class QKGUI(tk.Frame):
     def __init__(self,root_window=None):
         super().__init__(root_window)
         self.root_window = root_window
@@ -93,7 +92,7 @@ class QK(tk.Frame):
 
         # 类别按钮
         self.kind = tk.IntVar()
-        self.kind.set(1)
+        self.kind.set(0)
         tk.Radiobutton(prame_frame,variable=self.kind,value=0,text="推荐选课").pack(anchor=tk.W)
         tk.Radiobutton(prame_frame,variable=self.kind,value=2,text="体育选课").pack(anchor=tk.W)
         tk.Radiobutton(prame_frame,variable=self.kind,value=1,text="创新创业选课").pack(anchor=tk.W)
@@ -143,16 +142,6 @@ class QK(tk.Frame):
 
     #抢课模块
     def grab_lessons(self,t,cookies_dict,url,id):
-        #     if json_message['success'] == False:
-        #         self.out_result.insert(tk.END,"\n"+json_message['message'])
-        #         time.sleep(float(d[t]))
-        #         self.grab_lessons(url)
-        #     if json_message.get('message',None) is None:
-        #         self.out_result.insert(tk.END,'\n抢课成功') 
-        # except:
-        #     if json_message.get('message',None) is None:
-        #         self.out_result.insert(tk.END,'\n抢课成功:') 
-        #     self.out_result.insert(tk.END,'\ncookies失效或服务器请求超时重新运行程序')
         try:
             r=requests.get(url,headers={"user-agent":"Mozilla/5.0"},cookies=cookies_dict,timeout=5)
             r.encoding=r.apparent_encoding
@@ -185,7 +174,7 @@ class QK(tk.Frame):
             thread = threading.Thread(target=self.grab_lessons,args=(t,cookies_dict,url,i))
             thread.setDaemon(True)
             thread.start()
-            thread.join()
+
     def session(self):
         self.session_window = tk.Toplevel(root_window)
         self.session_window.title("登陆操作")
@@ -195,6 +184,6 @@ if __name__ == "__main__":
     root_window = tk.Tk()
     root_window.title("选课助手 v0.0.1")
     root_window.geometry("400x200+300+300")
-    qk = QK(root_window)
+    qk = QKGUI(root_window)
 
     root_window.mainloop()
